@@ -33,10 +33,10 @@ public class JeecgApplication extends SpringBootServletInitializer {
         String port = env.getProperty("server.port");
         String path = env.getProperty("server.servlet.context-path");
         log.info("\n----------------------------------------------------------\n\t" +
-                "Application Jeecg-Boot is running! Access URLs:\n\t" +
+                "Application PCS is running! Access URLs:\n\t" +
                 "Local: \t\thttp://localhost:" + port + path + "/\n\t" +
                 "External: \thttp://" + ip + ":" + port + path + "/\n\t" +
-                "Swagger文档: \thttp://" + ip + ":" + port + path + "/doc.html\n" +
+                //"Swagger文档: \thttp://" + ip + ":" + port + path + "/doc.html\n" +
                 "----------------------------------------------------------");
 
     }
