@@ -16,9 +16,6 @@
 	<modules>
 		<module>jeecg-boot-base-common</module>
 		<module>jeecg-boot-module-system</module>
-        <module>jeecg-boot-moudle-pcs</module>
-		<module>jeecg-boot-module-pcs</module>
-		<module>jeecg-boot-module-demo</module>
 	</modules>
 
 	<distributionManagement>
