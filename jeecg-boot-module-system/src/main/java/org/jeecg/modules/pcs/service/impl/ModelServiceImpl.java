@@ -30,7 +30,7 @@ import java.util.List;
  * @Version: V1.0
  */
 @Service
-//@DS("multi-datasource1")
+@DS("multi-datasource1")
 public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements IModelService {
 
 
@@ -58,7 +58,7 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
 		//query.eq(Model::getIsDeleted, CommonConstant.DEL_FLAG_0.toString());
 		query.eq(Model::getProjectId, projectId);
 		List<Model> list = this.list(query);
-		List<ProjectDetailTreeModel> listResult = FindsDepartsChildrenUtil.wrapTreeDataToTreeList2(list);
+		List<ProjectDetailTreeModel> listResult = FindsDepartsChildrenUtil.wrapTreeDataToTreeList2(list, projectId);
 		return listResult;
 	}
 

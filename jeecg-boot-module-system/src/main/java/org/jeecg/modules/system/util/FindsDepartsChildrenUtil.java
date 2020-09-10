@@ -131,25 +131,25 @@ public class FindsDepartsChildrenUtil {
         // sysDepartTreeList = treeList;
     }
 
-    public static List<ProjectDetailTreeModel> wrapTreeDataToTreeList2(List<Model> recordList) {
+    public static List<ProjectDetailTreeModel> wrapTreeDataToTreeList2(List<Model> recordList, String projectId) {
         List<ModelIDVo> idList = new ArrayList<ModelIDVo>();
         List<ProjectDetailTreeModel> records = new ArrayList<>();
         for (int i = 0; i < recordList.size(); i++) {
             Model model = recordList.get(i);
             records.add(new ProjectDetailTreeModel(model));
         }
-        List<ProjectDetailTreeModel> tree = findChildren2(records, idList);
+        List<ProjectDetailTreeModel> tree = findChildren2(records, idList, projectId);
         setEmptyChildrenAsNull2(tree);
         return tree;
     }
 
     private static List<ProjectDetailTreeModel> findChildren2(List<ProjectDetailTreeModel> recordList,
-                                                         List<ModelIDVo> modelIDVoList) {
+                                                         List<ModelIDVo> modelIDVoList, String projectId) {
 
         List<ProjectDetailTreeModel> treeList = new ArrayList<>();
         for (int i = 0; i < recordList.size(); i++) {
             ProjectDetailTreeModel branch = recordList.get(i);
-            if (oConvertUtils.isEmpty(branch.getParentModelId()) || "0".equalsIgnoreCase(branch.getParentModelId())) {
+            if (oConvertUtils.isEmpty(branch.getParentModelId()) || "0".equalsIgnoreCase(branch.getParentModelId()) || branch.getParentModelId().equals(projectId)) {
                 treeList.add(branch);
                 ModelIDVo modelIDVo = new ModelIDVo().convert(branch);
                 modelIDVoList.add(modelIDVo);

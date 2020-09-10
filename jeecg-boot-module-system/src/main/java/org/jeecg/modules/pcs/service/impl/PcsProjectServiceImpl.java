@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
  * @Version: V1.0
  */
 @Service
-//@DS("multi-datasource1")
+@DS("multi-datasource1")
 public class PcsProjectServiceImpl extends ServiceImpl<PcsProjectMapper, PcsProject> implements IPcsProjectService {
 
 }

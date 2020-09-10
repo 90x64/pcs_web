@@ -21,8 +21,8 @@ import io.swagger.annotations.ApiModelProperty;
  * @Version: V1.0
  */
 @Data
-//@TableName("\"PCSDataManager\".model")
-@TableName("model")
+@TableName("\"PCSDataManager\".model")
+//@TableName("model")
 @ApiModel(value="model对象", description="工程数据模型表")
 public class Model implements Serializable {
     private static final long serialVersionUID = 1L;

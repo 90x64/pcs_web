@@ -24,8 +24,8 @@ import lombok.experimental.Accessors;
  * @Version: V1.0
  */
 @Data
-//@TableName("\"PCSDataManager\".project")
-@TableName("pcs_project")
+@TableName("\"PCSDataManager\".project")
+//@TableName("pcs_project")
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value="pcs_project对象", description="项目信息管理")
