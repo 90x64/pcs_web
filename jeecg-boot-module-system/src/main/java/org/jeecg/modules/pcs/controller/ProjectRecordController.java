@@ -9,6 +9,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import cn.hutool.core.util.ObjectUtil;
 import org.jeecg.common.api.vo.Result;
 import org.jeecg.common.system.query.QueryGenerator;
 import org.jeecg.common.util.oConvertUtils;
@@ -66,6 +68,9 @@ public class ProjectRecordController extends JeecgController<ProjectRecord, IPro
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
 								   @RequestParam(name="pageSize", defaultValue="10") Integer pageSize,
 								   HttpServletRequest req) {
+		if (ObjectUtil.isNull(projectRecord.getModelId())) {
+			projectRecord.setModelId("1");
+		}
 		QueryWrapper<ProjectRecord> queryWrapper = QueryGenerator.initQueryWrapper(projectRecord, req.getParameterMap());
 		Page<ProjectRecord> page = new Page<ProjectRecord>(pageNo, pageSize);
 		IPage<ProjectRecord> pageList = projectRecordService.page(page, queryWrapper);

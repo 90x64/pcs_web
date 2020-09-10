@@ -56,7 +56,7 @@ public class ModelServiceImpl extends ServiceImpl<ModelMapper, Model> implements
 	public List<ProjectDetailTreeModel> queryTreeList(String projectId) {
 		LambdaQueryWrapper<Model> query = new LambdaQueryWrapper<Model>();
 		//query.eq(Model::getIsDeleted, CommonConstant.DEL_FLAG_0.toString());
-		//query.eq(Model::getProjectId, projectId);
+		query.eq(Model::getProjectId, projectId);
 		List<Model> list = this.list(query);
 		List<ProjectDetailTreeModel> listResult = FindsDepartsChildrenUtil.wrapTreeDataToTreeList2(list);
 		return listResult;
