@@ -104,7 +104,7 @@ public class PcsProject implements Serializable {
     private String constructionUnit;
 	/**项目经理*/
 	@Excel(name = "项目经理", width = 15, dictTable = "sys_user left join sys_user_role ON sys_user.id = sys_user_role.user_id left join sys_role on sys_user_role.role_id = sys_role.id", dicText = "sys_user.username", dicCode = "sys_user.username")
-	@Dict(dictTable = "sys_user left join sys_user_role ON sys_user.id = sys_user_role.user_id left join sys_role on sys_user_role.role_id = sys_role.id", dicText = "sys_user.username", dicCode = "sys_user.username")
+	//@Dict(dictTable = "sys_user left join sys_user_role ON sys_user.id = sys_user_role.user_id left join sys_role on sys_user_role.role_id = sys_role.id", dicText = "sys_user.username", dicCode = "sys_user.username")
     @ApiModelProperty(value = "项目经理")
     private String projectManager;
 	/**联系电话*/
