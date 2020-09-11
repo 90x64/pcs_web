@@ -1,5 +1,7 @@
 package org.jeecg.common.system.query;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.ReflectUtil;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import org.springframework.util.NumberUtils;
 
 import java.beans.PropertyDescriptor;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -77,6 +80,15 @@ public class QueryGenerator {
 		log.debug("---查询条件构造器初始化完成,耗时:"+(System.currentTimeMillis()-start)+"毫秒----");
 		return queryWrapper;
 	}
+
+	/**
+	 * 判断实体是否不需要模糊查询
+	 * @param obj
+	 * @return
+	 */
+	public static boolean getIsQueryLike(Object obj) {
+		return  Arrays.stream(ReflectUtil.getFields(obj.getClass())).anyMatch(field -> "noQueryLike".equals(field.getName()));
+	}
 	
 	/**
 	 * 组装Mybatis Plus 查询条件
@@ -98,7 +110,8 @@ public class QueryGenerator {
 		//区间条件组装 模糊查询 高级查询组装 简单排序 权限查询
 		PropertyDescriptor origDescriptors[] = PropertyUtils.getPropertyDescriptors(searchObj);
 		Map<String,SysPermissionDataRuleModel> ruleMap = getRuleMap();
-		
+		boolean isQueryLike = getIsQueryLike(searchObj);
+
 		//权限规则自定义SQL表达式
 		for (String c : ruleMap.keySet()) {
 			if(oConvertUtils.isNotEmpty(c) && c.startsWith(SQL_RULES_COLUMN)){
@@ -161,10 +174,12 @@ public class QueryGenerator {
 					QueryRuleEnum rule = convert2Rule(value);
 					value = replaceValue(rule,value);
 					// add -begin 添加判断为字符串时设为全模糊查询
-					//if( (rule==null || QueryRuleEnum.EQ.equals(rule)) && "class java.lang.String".equals(type)) {
+					if( (rule==null || QueryRuleEnum.EQ.equals(rule)) && "class java.lang.String".equals(type)) {
 						// 可以设置左右模糊或全模糊，因人而异
-						//rule = QueryRuleEnum.LIKE;
-					//}
+						if (!isQueryLike) {
+							rule = QueryRuleEnum.LIKE;
+						}
+					}
 					// add -end 添加判断为字符串时设为全模糊查询
 					addEasyQuery(queryWrapper, name, rule, value);
 				}

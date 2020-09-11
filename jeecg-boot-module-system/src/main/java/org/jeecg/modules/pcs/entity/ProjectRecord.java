@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -103,4 +104,7 @@ public class ProjectRecord implements Serializable {
 	@Excel(name = "dfs分组", width = 15)
     @ApiModelProperty(value = "dfs分组")
     private String dfsGroup;
+
+    @TableField(exist = false)
+    private String noQueryLike;
 }
